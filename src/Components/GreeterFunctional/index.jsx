@@ -23,12 +23,12 @@ function GreeterFunctional({ className }) {
         return () => {
             console.log('@componentWillUnmount xd Functional!!!!!!');
         }
-    }, []); 
+    }, []);
 
     return (
         <div className={className}>GreeterFunctional {name}</div>
     );
-    
+
 }
 
 export default GreeterFunctional;

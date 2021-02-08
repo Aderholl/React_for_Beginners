@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
+import "./ItemListFunctional.scss";
 
 const API_STARWARS = 'https://swapi.dev/api/people';
 
 function ItemListFunctional() {
+
+    const [dataList, setDataList] = useState([]);
+    console.log('@itemListFunctional dataList: ', dataList);
 
 /*     useEffect(() => {
         console.log('@termino de montar ItemList');
@@ -20,6 +24,8 @@ function ItemListFunctional() {
         fetch(API_STARWARS).then(body => body.json())
             .then(data => {
                 console.log('@data: ', data);
+                const results = data.results;
+                setDataList(results);
             })
             .catch(error => {
                 console.log('@error: ', error);
@@ -31,10 +37,12 @@ function ItemListFunctional() {
         console.log('@termino de montar ItemListFunctional');
         async function fetchData (){
             try {
-                const api = await fetch(API_STARWARS);
-                const body = await api.json();
-                console.log('@functional api: ', api);
-                console.log('@body: ', body);
+                const body = await fetch(API_STARWARS);
+                const data = await body.json();
+                console.log('@class body: ', body);
+                console.log('@data: ', data);
+                const results = data.results;
+                setDataList(results);
             } catch(error) {
                 console.log('@error: ', error);
             }
@@ -46,7 +54,15 @@ function ItemListFunctional() {
 
     return (
         <div>
-        
+                {dataList.map((value, index) => {
+                    console.log ('@value: ', value);
+                    return (
+                        <div key={index} className="cardfunctional">
+                            <h1>Name:{value.name}</h1>
+                            <h2>height:{value.height}</h2>
+                        </div>
+                    );
+                })}
         </div>
     );
     

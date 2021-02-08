@@ -20,17 +20,17 @@
     font-size: calc(10px + 2vmin);
     color: white;
   }
-
-  adsfadf
   
   &-greeterClass {
-    border: solid 1px blue;
+    border-radius: 10px;
+    border: solid 1px rgb(255, 251, 0);
     padding: 10px;
     margin-bottom: 20px;
   }
 
   &-greeterFunctional {
-    border: solid 1px red;
+    border-radius: 10px;
+    border: solid 1px rgb(140, 0, 255);
     padding: 10px;
     margin-bottom: 20px;
   }
