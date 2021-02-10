@@ -1,5 +1,22 @@
-.cardfunctional {
-    margin: 10px;
-    border-radius: 15px;
-    border: 1px solid rgb(12, 4, 128);
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+.cardContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 20%;
 }

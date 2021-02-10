@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import React from 'react';
 import "./ItemListClass.scss";
+import Card from '../Card';
 
 const API_STARWARS = 'https://swapi.dev/api/people';
 
@@ -75,16 +76,17 @@ class ItemListClass extends Component {
     render() {
         console.log('@itemListClass this.state: ', this.state);
         return (
-            <div>
-                {this.state.dataList.map((value, index) => {
-                    console.log ('@value: ', value);
-                    return (
-                        <div key={index} className="card">
-                            <h1>Name:{value.name}</h1>
-                            <h2>height:{value.height}</h2>
-                        </div>
-                    );
-                })}
+            <div className="container">
+                <h3>Itemlist Class</h3>
+                <div className="cardContainer">
+                    {this.state.dataList.map((value, index) => {
+                        console.log ('@value: ', value);
+                        return (
+                            <Card index={index} key={index} name={value.name} height={value.height} />
+                        );
+                    })}
+                </div>
+                
             </div>
         );
     }
