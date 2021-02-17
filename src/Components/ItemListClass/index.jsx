@@ -2,6 +2,7 @@ import { Component } from 'react';
 import React from 'react';
 import "./ItemListClass.scss";
 import Card from '../Card';
+import PaginationButtom from '../PaginationButtom';
 
 const API_STARWARS = 'https://swapi.dev/api/people';
 
@@ -9,8 +10,9 @@ class ItemListClass extends Component {
 
     constructor(props) {
         super(props);
-        this.state={
-            dataList:[] 
+        this.state = {
+            page: 1,
+            dataList: [] 
         };
         /* 
         //esto se hace solo para versiones viejas donde el contexto no esta bindeado(estrategia 1)
@@ -42,17 +44,17 @@ class ItemListClass extends Component {
  */
     async componentDidMount() {
         console.log('@termino de montar ItemListClass');
-        await this.fetchData();
+        await this.fetchData(this.state.page);
     }
 
-    async fetchData() {
+    fetchData = async (page) => {
         try {
-            const body = await fetch(API_STARWARS);
+            const body = await fetch(`${API_STARWARS}/?page=${page}`);
             const data = await body.json();
             console.log('@class body: ', body);
             console.log('@data: ', data);
             const results = data.results;
-            this.setState({ dataList: results });
+            this.setState({ dataList: results, page });
         } catch(error) {
             console.log('@error: ', error);
         }
@@ -73,20 +75,37 @@ class ItemListClass extends Component {
         }
     }  */
 
+    setCurrentPage = async (step) => {
+
+            if (step === -1 && this.state.page >= 2) {
+                const newPage = this.state.page - 1;
+                await this.fetchData(newPage);
+            }
+            if (step === 1 && this.state.page <= 8) {
+                const newPage = this.state.page + 1;
+                await this.fetchData(newPage);
+            }
+
+    }
+
     render() {
         console.log('@itemListClass this.state: ', this.state);
+        const self = this || {};
+            const state = (self && self.state) || {};
+            const dataList = (state && state.dataList) || [];
         return (
             <div className="container">
                 <h3>Itemlist Class</h3>
                 <div className="cardContainer">
-                    {this.state.dataList.map((value, index) => {
+                    {
+                        dataList.map((value, index) => {
                         console.log ('@value: ', value);
                         return (
                             <Card index={index} key={index} name={value.name} height={value.height} />
                         );
                     })}
                 </div>
-                
+                <PaginationButtom page={this.state.page} switchPage={this.setCurrentPage} />
             </div>
         );
     }

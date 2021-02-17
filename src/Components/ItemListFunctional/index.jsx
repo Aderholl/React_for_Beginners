@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import Card from '../Card';
 import "./ItemListFunctional.scss";
+import PaginationButtom from '../PaginationButtom';
 
 const API_STARWARS = 'https://swapi.dev/api/people';
 
@@ -55,11 +56,11 @@ function ItemListFunctional() {
 
     }, [page]);
 
-    function switchPage(step) {
-        if (step === -1 && page > 0) {
+    function switchPage(step) {        
+        if (step === -1 && page >= 2) {
             setPage(prev => prev - 1)
         }
-        if (step === 1 && page < 9) {
+        if (step === 1 && page <= 8) {
             setPage(prev => prev + 1)
         }
     }
@@ -75,11 +76,7 @@ function ItemListFunctional() {
                     );
                 })}
             </div>
-            <div className="pagination">
-                <button type="button" onClick={() => switchPage(-1)}>{"<"}</button>
-                <span>{page}</span>
-                <button type="button" onClick={() => switchPage(1)}>{">"}</button>
-            </div>
+            <PaginationButtom page={page} switchPage={switchPage} />
         </div>
     );
     
